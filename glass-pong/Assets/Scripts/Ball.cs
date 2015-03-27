@@ -36,6 +36,8 @@ public class Ball : MonoBehaviour {
 
         // Set Velocity with dir * speed
         GetComponent<Rigidbody2D>().velocity = dir*speed;
+
+        GameManager.Instance.PaddleHit(col.gameObject);
     }
 
     float hitFactor(Vector2 ballPos, Vector2 racketPos,

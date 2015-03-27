@@ -18,10 +18,10 @@ public class GameManager : MonoBehaviour {
     public void WallHit(GameObject wall, GameObject hitter)
     {
         if (hitter.name.ToLower().Contains("paddle")) return;
-        if (wall.tag == "Horizontal")
+        if (wall.tag.Contains("Horizontal"))
         {
-            if (lastPaddleHit.name.ToLower().Contains("right")) score1++;
-            else score2++;
+            if (lastPaddleHit.name.ToLower().Contains("right")) score2++;
+            else score1++;
         }
         else
         {
@@ -31,6 +31,12 @@ public class GameManager : MonoBehaviour {
 
         
         Application.LoadLevel(Application.loadedLevel);
+    }
+
+
+    public void PaddleHit(GameObject paddle)
+    {
+        lastPaddleHit = paddle;
     }
 
     private void Awake()
