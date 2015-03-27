@@ -7,8 +7,6 @@ public class Ball : MonoBehaviour {
 
     void Start()
     {
-        // Initial Velocity
-        GetComponent<Rigidbody2D>().velocity = Vector2.right * speed;
     }
 
     void OnCollisionEnter2D(Collision2D col)
