@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour {
 
     public static GameManager Instance { get; private set; }
-    public float DelayTime = 2.5f;
     public AudioClip PaddleHitSound;
     public AudioClip GlassHitSound;
     public AudioClip GlassBreakSound;
@@ -19,6 +18,7 @@ public class GameManager : MonoBehaviour {
     private Text go;
     private Text leftScore;
     private Text rightScore;
+    private bool waitingForInput;
 
     public void WallHit(GameObject wall, GameObject hitter)
     {
@@ -74,8 +74,8 @@ public class GameManager : MonoBehaviour {
     void Start()
     {
         FindComponents();
-        go.text = "Go";
-        Invoke("StartGame", DelayTime);
+        go.text = "Press ↑ or ↓ to Start!";
+        waitingForInput = true;
 
     }
 
@@ -94,7 +94,7 @@ public class GameManager : MonoBehaviour {
         FindComponents();
         leftScore.text = score2.ToString();
         rightScore.text = score1.ToString();
-        Invoke("StartGame", DelayTime);
+        waitingForInput = true;
 
     }
 
@@ -114,6 +114,17 @@ public class GameManager : MonoBehaviour {
     public void GlassBreak()
     {
         SoundManager.Instance.PlaySingle(GlassBreakSound);
+    }
 
+    void Update()
+    {
+        if (!waitingForInput) return;
+       
+        var v = Input.GetAxisRaw("Vertical");
+        if (v != 0)
+        {
+            StartGame();
+            waitingForInput = false;
+        }
     }
 }
