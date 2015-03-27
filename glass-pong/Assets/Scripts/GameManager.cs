@@ -7,6 +7,11 @@ public class GameManager : MonoBehaviour {
 
     public static GameManager Instance { get; private set; }
     public float DelayTime = 2.5f;
+    public AudioClip PaddleHitSound;
+    public AudioClip GlassHitSound;
+    public AudioClip GlassBreakSound;
+    public AudioClip WinSound;
+    public AudioClip FailSound;
     private int score1;
     private int score2;
     private GameObject lastPaddleHit;
@@ -20,13 +25,29 @@ public class GameManager : MonoBehaviour {
         if (hitter.name.ToLower().Contains("paddle")) return;
         if (wall.tag.Contains("Horizontal"))
         {
-            if (lastPaddleHit.name.ToLower().Contains("right")) score2++;
-            else score1++;
+            if (lastPaddleHit.name.ToLower().Contains("right"))
+            {
+                score2++;
+                SoundManager.Instance.PlaySingle(FailSound);
+            }
+            else
+            {
+                score1++;
+                SoundManager.Instance.PlaySingle(WinSound);
+            }
         }
         else
         {
-            if (wall.name.ToLower().Contains("right")) score2++;
-            else score1++;
+            if (wall.name.ToLower().Contains("right"))
+            {
+                score2++;
+                SoundManager.Instance.PlaySingle(FailSound);
+            }
+            else
+            {
+                score1++;
+                SoundManager.Instance.PlaySingle(WinSound);
+            }
         }
 
         
@@ -37,6 +58,7 @@ public class GameManager : MonoBehaviour {
     public void PaddleHit(GameObject paddle)
     {
         lastPaddleHit = paddle;
+        SoundManager.Instance.PlaySingle(PaddleHitSound);
     }
 
     private void Awake()
@@ -83,4 +105,15 @@ public class GameManager : MonoBehaviour {
     }
 
 
+    public void GlassHit()
+    {
+        SoundManager.Instance.PlaySingle(GlassHitSound);
+
+    }
+
+    public void GlassBreak()
+    {
+        SoundManager.Instance.PlaySingle(GlassBreakSound);
+
+    }
 }

@@ -11,11 +11,12 @@ public class Glass : MonoBehaviour
     {
         if (hitOnce)
         {
+            GameManager.Instance.GlassBreak();
             Destroy(gameObject);
             return;
         }
-
         hitOnce = true;
         gameObject.GetComponent<SpriteRenderer>().sprite = BrokenWallSprite;
+        GameManager.Instance.GlassHit();
     }
 }
