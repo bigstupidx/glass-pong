@@ -16,13 +16,13 @@ public class Ball : MonoBehaviour {
         // Hit the left Racket?
         if (col.gameObject.name == "PaddleLeft")
         {
-            HitPaddle(col, -1);
+            HitPaddle(col, 1);
         }
 
         // Hit the right Racket?
         if (col.gameObject.name == "PaddleRight")
         {
-            HitPaddle(col, 1);
+            HitPaddle(col, -1);
         }
     }
 
